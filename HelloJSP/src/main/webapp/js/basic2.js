@@ -26,13 +26,41 @@ for (let i = 0; i < members.length; i++) {
 		console.log(`id: ${members[i].id}, name: ${members[i].name}, point: ${members[i].point}`);
 }
 
+// 화면에 배열의 개수만큼 회원정보를 출력하는 함수
+function showList() {
 // 반복문 forEach 배열에만
-members.forEach(function(elem, idx, ary) {
-	if(elem.point >= 100){
-	console.log(`id: ${elem.id}, name: ${elem.name}, point: ${elem.point}`);
-	}
-	console.log(elem)
+members.forEach((elem, idx, ary) => {
+	let str = `<li>아이디: ${elem.id}, 이름: ${elem.name}, 포인트: ${elem.point}</li>`;
+	// ul 요소.
+	document.querySelector('#list').innerHTML += str;
 });
+} // end showList()
+
+// 이벤트 등록
+document.querySelector('#addBtn').addEventListener('click', () => {
+	let id = document.querySelector('#mid').value;
+	let name = document.querySelector('#mname').value;
+	let point = document.querySelector('#point').value;
+	// 필수값을 입력하시오	
+	if(id == '' || name == '' || point == ''){
+		window.alert('ID,Name,Point를 입력하시오');
+		return;
+	} 
+	document.querySelector('#list').innerHTML = ''; // 초기화
+	// 배열에 추가
+	members.push({id: id, name: name, point: point});
+	showList();
+	// 입력값 초기화
+	document.querySelector('#mid').value = '';
+	document.querySelector('#mname').value = '';
+	document.querySelector('#point').value = '';
+})
+
+document.querySelector('#removeBtn').addEventListener('click', function(){
+	members.pop();
+	document.querySelector('#list').innerHTML = '';
+	showList();
+})
 
 
 
