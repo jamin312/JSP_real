@@ -21,6 +21,7 @@ import com.yedam.control.ModifyBoardControl;
 import com.yedam.control.ModifyFormControl;
 import com.yedam.control.RegisterControl;
 import com.yedam.control.RemoveBoardControl;
+import com.yedam.control.ReplyListControl;
 import com.yedam.control.SignFormControl;
 import com.yedam.control.SignUpControl;
 
@@ -36,7 +37,7 @@ public class FrontController extends HttpServlet {
 	public FrontController() {
 		map = new HashMap<String, Control>();
 	}
-	
+
 	// gpt 활용해서 여러 기능 만들어보기 - email? 비밀번호 암호화, 등등
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -53,7 +54,10 @@ public class FrontController extends HttpServlet {
 		map.put("/loginForm.do", new LoginFormControl()); // 로그인 화면
 		map.put("/login.do", new LoginControl()); // 로그인 처리
 		map.put("/logout.do", new LogoutControl()); // 로그아웃 처리
-		map.put("/js.do", new JSControl()); // 기타)
+		// 기타
+		map.put("/js.do", new JSControl());
+		// 댓글 관련
+		map.put("/replyList.do", new ReplyListControl()); // 글번호 -> 댓글목록
 	}
 
 	@Override
@@ -61,11 +65,11 @@ public class FrontController extends HttpServlet {
 			throws ServletException, IOException {
 		// url vs uri 의미 구분
 		// http://localhost:8080/HelloJSP/boardList.do => url
-		// /HelloJSP/boardList.do 					   => uri
+		// /HelloJSP/boardList.do => uri
 		String uri = req.getRequestURI();
-		String context = req.getContextPath();   // ContextPath -> project 정보 /HelloJSP
-		String page = uri.substring(context.length()); // /boardList.do 
-		
+		String context = req.getContextPath(); // ContextPath -> project 정보 /HelloJSP
+		String page = uri.substring(context.length()); // /boardList.do
+
 		Control control = map.get(page);
 		control.execute(req, resp);
 	}

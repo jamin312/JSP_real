@@ -32,6 +32,7 @@
 	<mappers>
 		<mapper resource="com/yedam/mapper/BoardMapper.xml" />
 		<mapper resource="com/yedam/mapper/MemberMapper.xml" />
+		<mapper resource="com/yedam/mapper/ReplyMapper.xml" />
 	</mappers>
 
 </configuration>

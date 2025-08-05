@@ -67,5 +67,6 @@
 	</tr>
 </table>
 
+<!-- 댓글 -->
 
-
+<script src="js/board.js"></script>
