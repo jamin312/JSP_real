@@ -2,6 +2,25 @@
  *  boardService.js
  */
 
+class PageVO {
+
+	// 생성자
+	constructor(currPage, totalCnt) {
+		this.currPage = currPage; // currPage 필드 선언
+		this.totalCnt = totalCnt; // totalPage 필드 선언
+		// start, end 계산
+		this.end = Math.ceil(currPage / 10) * 10; // 제일 끝 페이지
+		this.start = this.end - 9; // 1페이지
+
+		let realEnd = Math.ceil(totalCnt / 5);
+		this.end = this.end > realEnd ? realEnd : this.end;
+		// 이전 이후 존재 여부
+		this.prev = this.start > 1;
+		this.next = this.end < realEnd;
+	}
+
+}
+
 const svc = {
 	count: 20, // 속성(property)
 	increaseCount: function() { // 메소드
@@ -30,5 +49,13 @@ const svc = {
 			.then(resolve => resolve.json())
 			.then(successCallback)
 			.catch(errorCallback)
+	},
+	// bno에 대한 전체건수 ajax 메소드
+	replyTotalCount(bno, successCallback, errorCallback) {
+		fetch('totalReply.do?bno=' + bno)
+			.then(resolve => resolve.json())
+			.then(successCallback)
+			.catch(errorCallback)
 	}
+
 }

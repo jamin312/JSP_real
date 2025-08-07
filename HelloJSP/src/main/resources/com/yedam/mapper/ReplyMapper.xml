@@ -3,7 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.ReplyMapper">
-
+	
+	<!-- 댓글 페이징 및 목록 -->
 	<select id="replyList" parameterType="int" resultType="com.yedam.vo.ReplyVO">
 		select b.*
 		from  (select /*+ INDEX_DESC(r PK_REPLY) */ r.*, rownum rn
@@ -14,12 +15,14 @@
 		and b.rn <= (#{page} * 5)
 		]]>
 	</select>
-
+	
+	<!-- 댓글 삭제 -->
 	<delete id="deleteReply" parameterType="int">
 		delete from tbl_reply
 		where reply_no = #{replyNo}
 	</delete>
-
+	
+	<!-- 댓글 등록 -->
 	<insert id="insertReply" parameterType="com.yedam.vo.ReplyVO">
 
 		<selectKey keyProperty="replyNo" resultType="int" order="BEFORE">
@@ -29,5 +32,13 @@
 		insert into tbl_reply (reply_no, board_no, reply, replyer)
 		values (#{replyNo}, #{boardNo}, #{reply}, #{replyer})
 	</insert>
-
+	
+	<!-- 댓글 개수 -->
+	<select id="selectCount" parameterType="int">
+		select count(1)
+		from tbl_reply
+		where board_no = #{boardNo}
+	</select>
+	
+	
 </mapper>

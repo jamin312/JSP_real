@@ -72,7 +72,11 @@
   ul {list-style-type: none;}
   span {display: inline-block;}
   
-.pagination {
+.footer {
+  text-align: center;
+}  
+
+.pagination { 
   display: inline-block;
 }
 
