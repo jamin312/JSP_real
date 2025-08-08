@@ -4,21 +4,19 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mapper.EventMapper">
 	
-	<select id="eventList" parameterType="com.yedam.vo.EventVO" resultType="com.yedam.vo.EventVO">
-		select title, start_date, end_date
+	<select id="eventList" parameterType="com.yedam.vo.EventVO" resultType="event">
+		select title, start_date AS "start" , end_date AS "end"
 		from tbl_event
 	</select>
 	
-	<insert id="insertEvent" parameterType="com.yedam.vo.EventVO">
+	<insert id="insertEvent" parameterType="map">
 		insert into tbl_event (title, start_date, end_date)
-		values (#{title}, #{startDate}, #{endDate})
+		values (#{title}, #{start}, #{end})
 	</insert>
 	
-	<delete id="deleteEvent" parameterType="com.yedam.vo.EventVO">
+	<delete id="deleteEvent" parameterType="String">
 		delete from tbl_event
 		where title = #{title} 
-		and start_date = #{startDate}
-		and end_date = #{endDate} 
 	</delete>
 	
 </mapper>

@@ -1,6 +1,7 @@
 package com.yedam.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -19,8 +20,8 @@ public class EventServiceImpl implements EventService{
 	}
 
 	@Override
-	public boolean removeEvent(EventVO event) {
-		int r = mapper.deleteEvent(event);
+	public boolean removeEvent(String title) {
+		int r = mapper.deleteEvent(title);
 		if (r > 0) {
 			sqlSession.commit();
 			return true; // 정상 등록
@@ -29,8 +30,8 @@ public class EventServiceImpl implements EventService{
 	}
 
 	@Override
-	public boolean addEvent(EventVO event) {
-		int r = mapper.insertEvent(event);
+	public boolean addEvent(Map<String, Object> map) {
+		int r = mapper.insertEvent(map);
 		if (r > 0) {
 			sqlSession.commit();
 			return true; // 정상 등록
